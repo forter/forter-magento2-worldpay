@@ -47,7 +47,7 @@ class Order
 
             $method = $order->getPayment()->getMethod();
 
-            if ($method == 'worldpay_cc') {
+            if ($method == 'worldpay_cc' || $method == 'worldpay_apm') {
                 $connection = $this->_resource->getConnection();
                 $tableName = $this->_resource->getTableName('worldpay_payment');
                 $select_sql = "Select * FROM " . $tableName . " Where order_id=" . $result['orderId'];
@@ -72,7 +72,7 @@ class Order
             }
 
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->abstractApi->reportToForterOnCatch($e);
         }
 
